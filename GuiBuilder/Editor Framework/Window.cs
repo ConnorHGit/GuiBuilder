@@ -29,7 +29,9 @@ namespace GuiBuilder.Editor_Framework
 				SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
 			}
 		}
+		public void revalidateButtons()
+		{
 
-
+		}
 	}
 }

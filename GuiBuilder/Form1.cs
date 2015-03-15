@@ -13,13 +13,18 @@ namespace GuiBuilder
 {
 
     public partial class Form1 : Window
-    {		
+    {
+		public Header header;
+		public MenuBar menuBar;
+		public Body body;
 
         public Form1()
         {
 			title = "Gui Builder";
             InitializeComponent();
-			new Header(this);
+			header = new Header(this);
+			menuBar = new MenuBar(); 
+			body = new Body(this);
 		}
 
 		private void label1_Click(object sender, EventArgs e)
@@ -35,6 +40,10 @@ namespace GuiBuilder
 		private void Form1_Load(object sender, EventArgs e)
 		{
 
+		}
+		public new void revalidateButtons()
+		{
+			body.revalidate();
 		}
     }
 }
