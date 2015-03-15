@@ -10,6 +10,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 	public class Segmentable
 	{
 		public Panel background;
-		public Panel parentPanel;
+		public Segment parentSegment;
+		public Segmentable partnerSegment;
 	}
 }

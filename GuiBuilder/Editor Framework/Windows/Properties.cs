@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GuiBuilder.Editor_Framework.Windows
 {
-	class Properties : Window
+	class Properties : DockableWindow
 	{
 
 	}
