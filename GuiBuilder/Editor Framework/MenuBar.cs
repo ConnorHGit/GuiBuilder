@@ -9,5 +9,6 @@ namespace GuiBuilder.Editor_Framework
 	public class MenuBar
 	{
 		public int height = 0;
+		public void revalidate(){}
 	}
 }

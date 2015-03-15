@@ -94,13 +94,13 @@ namespace GuiBuilder.Editor_Framework
 		private void minimizeClicked(object sender, EventArgs e)
 		{
 			Program.mainWindow.WindowState = FormWindowState.Minimized;
-			revalidateButtons();
+			revalidate();
 		}
 		private void maximizeClicked(object sender, EventArgs e)
 		{
 			Program.mainWindow.WindowState = Program.mainWindow.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
 			maximize.Image = blackRestoreDown;
-			revalidateButtons();
+			revalidate();
 		}
 		private void exitClicked(object sender, EventArgs e)
 		{
@@ -142,15 +142,15 @@ namespace GuiBuilder.Editor_Framework
 
 		private void sizeChange(object sender, EventArgs e)
 		{
-			revalidateButtons();
+			revalidate();
 		}
-		private void revalidateButtons()
+		private void revalidate()
 		{
 			background.Size = new Size(parentForm.Width, 25);
 			minimize.Location = new Point(parentForm.Width - 75, 0);
 			maximize.Location = new Point(parentForm.Width - 50, 0);
 			exit.Location = new Point(parentForm.Width - 25, 0);
-			parentForm.revalidateButtons();
+			parentForm.revalidate();
 		}
 	}
 }

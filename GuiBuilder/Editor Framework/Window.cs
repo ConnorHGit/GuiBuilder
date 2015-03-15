@@ -24,13 +24,12 @@ namespace GuiBuilder.Editor_Framework
 			header.title.Text = title;
 		}
 
-
+		public virtual void revalidate(){}
 
 		[DllImportAttribute("user32.dll")]
 		public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 		[DllImportAttribute("user32.dll")]
 		public static extern bool ReleaseCapture();
-
 		public void TitleDrag(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Left)
@@ -39,7 +38,6 @@ namespace GuiBuilder.Editor_Framework
 				SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
 			}
 		}
-		public void revalidateButtons() { }
 		private void InitializeComponent()
 		{
 			this.SuspendLayout(); 

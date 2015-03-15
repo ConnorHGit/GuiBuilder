@@ -24,7 +24,7 @@ namespace GuiBuilder.Editor_Framework
 			parentForm.Controls.Add(content);
 
 		}
-		public void revalidate()
+		public new void revalidate()
 		{
 			int topSize = parentForm.header.height + parentForm.menuBar.height;
 			content.Location = new Point(0, topSize);

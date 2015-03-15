@@ -11,15 +11,14 @@ using GuiBuilder.Editor_Framework;
 
 namespace GuiBuilder
 {
-
     public partial class Form1 : Window
     {
-		
 		public MenuBar menuBar;
 		public Body body;
 
         public Form1()
         {
+			System.Console.Out.WriteLine("Form created");
 			title = "Gui Builder";
             InitializeComponent();
 			header = new Header(this);
@@ -27,23 +26,14 @@ namespace GuiBuilder
 			body = new Body(this);
 		}
 
-		private void label1_Click(object sender, EventArgs e)
+		public override void revalidate()	
 		{
-
-		}
-
-		private void label1_Click_1(object sender, EventArgs e)
-		{
-
-		}
-
-		private void Form1_Load(object sender, EventArgs e)
-		{
-
-		}
-		public new void revalidateButtons()
-		{
+			System.Console.Out.WriteLine("WTf revalidating");
 			body.revalidate();
+			menuBar.revalidate();
 		}
+		private void Form1_Load(object sender, EventArgs e) {}
+
+		
     }
 }
