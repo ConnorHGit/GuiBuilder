@@ -44,6 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Editor Framework\Body.cs" />
+    <Compile Include="Editor Framework\Header.cs" />
+    <Compile Include="Editor Framework\MenuBar.cs" />
+    <Compile Include="Editor Framework\Window.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor Framework\Windows\DockableWindow.cs" />
+    <Compile Include="Editor Framework\Windows\Properties.cs" />
+    <Compile Include="Editor Framework\Windows\Segmentable.cs" />
+    <Compile Include="Segment.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -52,6 +62,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Editor Framework\Window.resx">
+      <DependentUpon>Window.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -60,6 +76,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -70,9 +87,21 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\black exit.png" />
+    <Content Include="Resources\black maximize.png" />
+    <Content Include="Resources\black minimize.png" />
+    <Content Include="Resources\black restore down.png" />
+    <Content Include="Resources\logo.png" />
+    <Content Include="Resources\white exit.png" />
+    <Content Include="Resources\white maximize.png" />
+    <Content Include="Resources\white minimize.png" />
+    <Content Include="Resources\white restore down.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
