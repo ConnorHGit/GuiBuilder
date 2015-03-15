@@ -14,7 +14,7 @@ namespace GuiBuilder
 
     public partial class Form1 : Window
     {
-		public Header header;
+		
 		public MenuBar menuBar;
 		public Body body;
 

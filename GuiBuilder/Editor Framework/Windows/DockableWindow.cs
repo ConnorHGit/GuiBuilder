@@ -12,11 +12,12 @@ namespace GuiBuilder.Editor_Framework.Windows
 		private Window window;
 		private Panel panel;
 		private Boolean docked;
-		private List<DockableWindow> right, left, up, down;
+
+		public void revalidate()
+		{
+
+		}
 	}
 
-	public enum DockPosition
-	{
-		up, down, left, right
-	}
+	
 }
