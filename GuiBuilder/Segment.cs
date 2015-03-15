@@ -59,6 +59,15 @@ namespace GuiBuilder.Editor_Framework.Windows
 			if (children[0] == null)
 			{
 				children[0] = child;
+				segmentStyle = SegmentStyle.None;
+			}
+			else if (children[1] == null)
+			{
+				children[1] = child;
+				this.segmentStyle = segmentSpot == SegmentSpot.Left || segmentSpot == SegmentSpot.Right ? SegmentStyle.Vertical : this.segmentStyle;
+				this.segmentStyle = segmentSpot == SegmentSpot.Up || segmentSpot == SegmentSpot.Down ? SegmentStyle.Horizontal : this.segmentStyle;
+				this.segmentStyle = segmentSpot == SegmentSpot.Share ? SegmentStyle.None : this.segmentStyle;
+
 			}
 
 		}
