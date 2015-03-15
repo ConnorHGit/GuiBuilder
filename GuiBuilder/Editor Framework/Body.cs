@@ -16,7 +16,7 @@ namespace GuiBuilder.Editor_Framework
 		{
 			this.parentForm = parentForm;
 			int topSize = parentForm.header.height + parentForm.menuBar.height;
-			
+			segmentType = SegmentType.Body;
 			content = new Panel();
 			content.Location = new Point(0, topSize);
 			content.Size = new Size(parentForm.Width, parentForm.Height - topSize);

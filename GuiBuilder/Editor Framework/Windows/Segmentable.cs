@@ -11,7 +11,22 @@ namespace GuiBuilder.Editor_Framework.Windows
 	{
 		public Panel content;
 		public Segment parentSegment;
-		public SegmentType type;
+		public SegmentType segmentType;
 		public virtual void revalidate() {}
+	}
+
+	public enum SegmentStyle
+	{
+		Horizontal, Vertical, None
+	}
+
+	public enum SegmentSpot
+	{
+		Left, Right, Up, Down, Share
+	}
+
+	public enum SegmentType
+	{
+		DockableWindow, DockableWindowGroup, Segment, Body
 	}
 }
