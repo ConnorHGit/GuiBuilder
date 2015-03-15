@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace GuiBuilder.Editor_Framework.Windows
 {
-	public abstract class Segmentable
+	public class Segmentable
 	{
-		public Panel background;
+		public Panel content;
 		public Segment parentSegment;
 		public abstract SegmentType type;
 		public void revalidate() {}
