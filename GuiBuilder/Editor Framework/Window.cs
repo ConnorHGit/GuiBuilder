@@ -16,7 +16,7 @@ namespace GuiBuilder.Editor_Framework
 		public const int HT_CAPTION = 0x2;
 		public const int WM_NCLBUTTONDOWN = 0xA1;
 
-		public Window();
+		public Window(){}
 		public Window(String title)
 		{
 			this.title = title;
@@ -39,7 +39,7 @@ namespace GuiBuilder.Editor_Framework
 				SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
 			}
 		}
-
+		public void revalidateButtons() { }
 		private void InitializeComponent()
 		{
 			this.SuspendLayout(); 

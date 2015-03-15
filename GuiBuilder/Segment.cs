@@ -15,7 +15,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 		public Label splitBar;	//the bar that seperates and can resize the two children segmentables, if there are not two children there will be no bar.
 		public int barOffset;
 
-		public Segment();	//used for constructor in Body class
+		public Segment(){}	//used for constructor in Body class
 		public Segment(Segment parentSegment)
 		{
 			type = SegmentType.Segment;
