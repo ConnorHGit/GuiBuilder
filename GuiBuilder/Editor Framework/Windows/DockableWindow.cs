@@ -7,14 +7,12 @@ using System.Windows.Forms;
 
 namespace GuiBuilder.Editor_Framework.Windows
 {
-	public class DockableWindow
+	public class DockableWindow : Segmentable
 	{
 		private Window window;
 		private Panel panel;
 		private Boolean docked;
 		private List<DockableWindow> right, left, up, down;
-
-		
 	}
 
 	public enum DockPosition
