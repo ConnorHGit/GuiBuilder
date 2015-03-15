@@ -13,6 +13,11 @@ namespace GuiBuilder.Editor_Framework.Windows
 		public SegmentStyle segmentStyle;
 		public Label splitBar;	//the bar that seperates and can resize the two children segmentables, if there are not two children there will be no bar.
 		public int barOffset;
+		public Segment(Segment parentSegment)
+		{
+			type = SegmentType.Segment;
+			this.parentSegment = parentSegment;
+		}
 
 		public void revalidate()
 		{
@@ -43,10 +48,11 @@ namespace GuiBuilder.Editor_Framework.Windows
 			}
 		}
 
-		//
+		//if the segment style is none then if there is alrady 1 child, the docked window becomes a docked window group;
+		//if its already a docked window group, then that child gets added 
 		public void addChild(Segmentable child, SegmentSpot segmentStyle)
 		{
-
+			if (segme)
 		}
 	}
 
@@ -58,6 +64,11 @@ namespace GuiBuilder.Editor_Framework.Windows
 	public enum SegmentSpot
 	{
 		Left, Right, Up, Down, Share
+	}
+
+	public enum SegmentType
+	{
+		DockableWindow, DockableWindowGroup, Segment
 	}
 
 }

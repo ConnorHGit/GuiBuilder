@@ -11,7 +11,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 	{
 		public Panel background;
 		public Segment parentSegment;
-		public Segmentable partnerSegmentable;
+		public abstract SegmentType type;
 		public void revalidate() {}
 	}
 }
