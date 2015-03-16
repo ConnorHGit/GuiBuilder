@@ -94,15 +94,16 @@ namespace GuiBuilder.Editor_Framework.Windows
 
 		private void minimizeClicked(object sender, EventArgs e)
 		{
-			Program.mainWindow.WindowState = FormWindowState.Minimized;
+			parentDockableWindow.window.WindowState = FormWindowState.Minimized;
 			parentDockableWindow.revalidate();
 			//revalidate();
 		}
 		private void maximizeClicked(object sender, EventArgs e)
 		{
-		
-			Program.mainWindow.WindowState = Program.mainWindow.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
-			maximize.Image = blackRestoreDown;
+
+			parentDockableWindow.window.WindowState = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+			maximize.Image = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? blackRestoreDown : blackMaximize;
+			System.Console.Out.WriteLine("Maximized pressed");
 			parentDockableWindow.revalidate();
 			//revalidate();
 		}
@@ -121,7 +122,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 			maximize.BackColor = SystemColors.HotTrack;
 			maximize.Image = whiteRestoreDown;
 			if (!parentDockableWindow.docked)
-				maximize.Image = Program.mainWindow.WindowState == FormWindowState.Maximized ? whiteRestoreDown : whiteMaximize;
+				maximize.Image = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? whiteRestoreDown : whiteMaximize;
 
 		}
 		private void exitEntered(object sender, EventArgs e)
@@ -138,7 +139,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 		private void maximizeExited(object sender, EventArgs e)
 		{
 			maximize.BackColor = SystemColors.Control;
-			maximize.Image = Program.mainWindow.WindowState == FormWindowState.Maximized ? blackRestoreDown : blackMaximize;
+			maximize.Image = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? blackRestoreDown : blackMaximize;
 		}
 		private void exitExited(object sender, EventArgs e)
 		{
@@ -155,27 +156,26 @@ namespace GuiBuilder.Editor_Framework.Windows
 		public void revalidate()
 		{
 			int width = parentDockableWindow.content.Width;
+			content.Size = new Size(width, 25);
 			if (parentDockableWindow.docked) 
 			{
 				
-				content.Size = new Size(width, 25);
+				
 				//minimize.Location = new Point(width - 75, 0);
 				maximize.Location = new Point(width - 50, 0);
 				exit.Location = new Point(width - 25, 0);
-				//parentForm.revalidate();
+
 				if (content.Controls.Contains(minimize))
 					content.Controls.Remove(minimize);
-				if (parentDockableWindow.window.Controls.Contains(content))
-				{
-					//parentDockableWindow.window.Controls.Remove(background);
-					parentDockableWindow.content.Controls.Add(content);
-				}
+				
 			}
 			else
 			{
 				if (!content.Controls.Contains(minimize))
 					content.Controls.Add(minimize);
 				minimize.Location = new Point(width - 75, 0);
+				maximize.Location = new Point(width - 50, 0);
+				exit.Location = new Point(width - 25, 0);
 			}
 			
 		}

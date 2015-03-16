@@ -33,6 +33,8 @@ namespace GuiBuilder.Editor_Framework.Windows
 
 		public override void revalidate()
 		{
+			if (!docked)
+				content.Size = new Size(window.Size.Width, window.Size.Height);
 			dockableHeader.revalidate();
 		}
 		public void dock(Segment segment, SegmentSpot segmentSpot, Segment sendingChild) 
@@ -53,6 +55,10 @@ namespace GuiBuilder.Editor_Framework.Windows
 			docked = false;
 			parentSegment.removeChild(this);
 			
+		}
+		public int getWidth()
+		{
+			return content.Size.Width;
 		}
 	}
 
