@@ -11,20 +11,31 @@ namespace GuiBuilder.Editor_Framework.Windows
 	{
 		public Window window;
 		public Boolean docked;
-		public Header header;
+		public DockableHeader dockableHeader;
 
 		public DockableWindow(Segment parentSegment) {
 			this.parentSegment = parentSegment;
 			docked = true;
 			parentSegment.content.Controls.Add(content);
-			//content.
+			dockableHeader = new DockableHeader(this);
+			content.Controls.Add(dockableHeader.content);
 
 		}
 		public void revalidate()
 		{
+			dockableHeader.revalidate();
+		}
+		public void dock() 
+		{
+			docked = true;
 
 		}
-		public void dock()
+		public void undock()
+		{
+			docked = false;
+			parentSegment.removeChild(this);
+
+		}
 	}
 
 	

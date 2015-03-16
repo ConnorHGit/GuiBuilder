@@ -97,8 +97,9 @@ namespace GuiBuilder.Editor_Framework.Windows
 			toRemove = child == children[1] ? 1 : toRemove;
 			if (toRemove != -1)
 			{
+				content.Controls.Remove(child.content);
+				children[toRemove].parentSegment = null;
 				children[toRemove] = null;
-				revalidate();
 			}
 			fixChildren();
 			revalidate();
@@ -134,12 +135,14 @@ namespace GuiBuilder.Editor_Framework.Windows
 		{
 			if (children[0] == null)
 			{
+				content.Controls.Add(child.content);
 				child.parentSegment = this;
 				children[0] = child;
 				segmentStyle = SegmentStyle.None;
 			}
 			else if (children[1] == null)
 			{
+				content.Controls.Add(child.content);
 				child.parentSegment = this;
 				children[1] = child;
 				this.segmentStyle = segmentSpot == SegmentSpot.Left || segmentSpot == SegmentSpot.Right ? SegmentStyle.Vertical : this.segmentStyle;
@@ -154,10 +157,14 @@ namespace GuiBuilder.Editor_Framework.Windows
 				segmentStyle = segmentSpot == SegmentSpot.Up || segmentSpot == SegmentSpot.Down ? SegmentStyle.Horizontal : this.segmentStyle;
 				segmentStyle = segmentSpot == SegmentSpot.Share ? SegmentStyle.None : this.segmentStyle;
 				int index = sendingChild == children[0] ? 0 : 1;
-				if (segmentStyle != SegmentStyle.None)
-					children[index] = new Segment(this, children[index], child, segmentStyle);
-				else ;
-					//children[index] = new DockableWindowGroup(this, children[index], child);
+				Segmentable temp = children[index];
+				removeChild(temp);
+				if (segmentSpot == SegmentSpot.Up || segmentSpot == SegmentSpot.Left)
+					children[index] = new Segment(this, child, temp, segmentStyle);
+				else if (segmentSpot == SegmentSpot.Down || segmentSpot == SegmentSpot.Right)
+					children[index] = new Segment(this, temp, child, segmentStyle);
+				else
+					System.Console.Out.WriteLine("Did not make dockable window groups yet.");
 			}
 
 		}

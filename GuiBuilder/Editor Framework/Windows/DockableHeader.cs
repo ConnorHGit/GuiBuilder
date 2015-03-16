@@ -10,7 +10,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 {
 		public class DockableHeader
 	{
-		public Panel background;
+		public Panel content;
 		public Label minimize, maximize, exit, title, iconLabel;
 		Image whiteMinimize, whiteMaximize, whiteRestoreDown, whiteExit,
 				blackMinimize, blackMaximize, blackRestoreDown, blackExit,
@@ -22,7 +22,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 		{
 			this.parentDockableWindow = parentDockableWindow;
 			Console.WriteLine(Environment.CurrentDirectory);
-			background = new Panel();
+			content = new Panel();
 			minimize = new Label();
 			maximize = new Label();
 			exit = new Label();
@@ -52,7 +52,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 			minimize.AutoSize = false;
 			maximize.AutoSize = false;
 			exit.AutoSize = false;
-			background.Size = new Size(parentDockableWindow.content.Width,height);
+			content.Size = new Size(parentDockableWindow.content.Width,height);
 			minimize.Size = new Size(height, height);
 			maximize.Size = new Size(height, height);
 			exit.Size = new Size(height, height);
@@ -77,18 +77,18 @@ namespace GuiBuilder.Editor_Framework.Windows
 			maximize.MouseLeave += maximizeExited;
 			exit.MouseLeave += exitExited;
 
-			background.Controls.Add(iconLabel);
-			background.Controls.Add(title);
-			background.Controls.Add(minimize);
-			background.Controls.Add(maximize);
-			background.Controls.Add(exit);
-			background.Controls.Add(title);
-			parentDockableWindow.content.Controls.Add(background);
+			content.Controls.Add(iconLabel);
+			content.Controls.Add(title);
+			content.Controls.Add(minimize);
+			content.Controls.Add(maximize);
+			content.Controls.Add(exit);
+			content.Controls.Add(title);
+			parentDockableWindow.content.Controls.Add(content);
 
 			parentDockableWindow.window.Resize += sizeChange;
 
 			title.MouseDown += parentDockableWindow.window.TitleDrag;
-			background.MouseDown += parentDockableWindow.window.TitleDrag;
+			content.MouseDown += parentDockableWindow.window.TitleDrag;
 		}
 
 		private void minimizeClicked(object sender, EventArgs e)
@@ -99,6 +99,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 		}
 		private void maximizeClicked(object sender, EventArgs e)
 		{
+		
 			Program.mainWindow.WindowState = Program.mainWindow.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
 			maximize.Image = blackRestoreDown;
 			parentDockableWindow.revalidate();
@@ -117,7 +118,10 @@ namespace GuiBuilder.Editor_Framework.Windows
 		private void maximizeEntered(object sender, EventArgs e)
 		{
 			maximize.BackColor = SystemColors.HotTrack;
-			maximize.Image = Program.mainWindow.WindowState == FormWindowState.Maximized ? whiteRestoreDown : whiteMaximize;
+			maximize.Image = whiteRestoreDown;
+			if (!parentDockableWindow.docked)
+				maximize.Image = Program.mainWindow.WindowState == FormWindowState.Maximized ? whiteRestoreDown : whiteMaximize;
+
 		}
 		private void exitEntered(object sender, EventArgs e)
 		{
@@ -147,29 +151,29 @@ namespace GuiBuilder.Editor_Framework.Windows
 			//revalidate();
 			parentDockableWindow.revalidate();
 		}
-		private void revalidate()
+		public void revalidate()
 		{
 			int width = parentDockableWindow.content.Width;
 			if (parentDockableWindow.docked) 
 			{
 				
-				background.Size = new Size(width, 25);
+				content.Size = new Size(width, 25);
 				//minimize.Location = new Point(width - 75, 0);
 				maximize.Location = new Point(width - 50, 0);
 				exit.Location = new Point(width - 25, 0);
 				//parentForm.revalidate();
-				if (background.Controls.Contains(minimize))
-					background.Controls.Remove(minimize);
-				if (parentDockableWindow.window.Controls.Contains(background))
+				if (content.Controls.Contains(minimize))
+					content.Controls.Remove(minimize);
+				if (parentDockableWindow.window.Controls.Contains(content))
 				{
 					//parentDockableWindow.window.Controls.Remove(background);
-					parentDockableWindow.content.Controls.Add(background);
+					parentDockableWindow.content.Controls.Add(content);
 				}
 			}
 			else
 			{
-				if (!background.Controls.Contains(minimize))
-					background.Controls.Add(minimize);
+				if (!content.Controls.Contains(minimize))
+					content.Controls.Add(minimize);
 				minimize.Location = new Point(width - 75, 0);
 			}
 			
