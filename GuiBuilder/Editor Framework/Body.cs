@@ -25,7 +25,7 @@ namespace GuiBuilder.Editor_Framework
 			segment.content.BackColor = SystemColors.ControlLightLight;
 			parentForm.Controls.Add(segment.content);
 		}
-		public override void revalidate()
+		public void revalidate()
 		{
 			int topSize = parentForm.header.height + parentForm.menuBar.height;
 			segment.content.Location = new Point(0, topSize);

@@ -13,6 +13,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 		public Boolean docked;
 		public DockableHeader dockableHeader;
 
+		public DockableWindow() { }
 		public DockableWindow(Segment parentSegment) {
 			this.parentSegment = parentSegment;
 			docked = true;
@@ -21,11 +22,11 @@ namespace GuiBuilder.Editor_Framework.Windows
 			content.Controls.Add(dockableHeader.content);
 
 		}
-		public void revalidate()
+		public override void revalidate()
 		{
 			dockableHeader.revalidate();
 		}
-		public void dock() 
+		public void dock(Segment segment, SegmentSpot  segmentSpot) 
 		{
 			docked = true;
 

@@ -28,7 +28,6 @@ namespace GuiBuilder
 
 		public override void revalidate()	
 		{
-			System.Console.Out.WriteLine("WTf revalidating");
 			body.revalidate();
 			menuBar.revalidate();
 		}
