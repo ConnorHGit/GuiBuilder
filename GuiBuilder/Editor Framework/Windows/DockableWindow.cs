@@ -9,14 +9,15 @@ namespace GuiBuilder.Editor_Framework.Windows
 {
 	public class DockableWindow : Segmentable
 	{
-		private Window window;
-		private Panel content;
-		private Boolean docked;
+		public Window window;
+		public Panel content;
+		public Boolean docked;
 
 		public void revalidate()
 		{
 
 		}
+		public void dock()
 	}
 
 	

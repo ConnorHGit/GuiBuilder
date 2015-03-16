@@ -9,26 +9,27 @@ using System.Windows.Forms;
 
 namespace GuiBuilder.Editor_Framework
 {
-	public class Body : Segment
+	public class Body
 	{
-		private Form1 parentForm;
+		public Form1 parentForm;
+		public Segment segment;
 		public Body(Form1 parentForm)
 		{
+			segment = new Segment();
 			this.parentForm = parentForm;
 			int topSize = parentForm.header.height + parentForm.menuBar.height;
-			segmentType = SegmentType.Body;
-			content = new Panel();
-			content.Location = new Point(0, topSize);
-			content.Size = new Size(parentForm.Width, parentForm.Height - topSize);
-			content.BackColor = SystemColors.ControlLightLight;
-			parentForm.Controls.Add(content);
-
+			segment.segmentType = SegmentType.Body;
+			segment.content = new Panel();
+			segment.content.Location = new Point(0, topSize);
+			segment.content.Size = new Size(parentForm.Width, parentForm.Height - topSize);
+			segment.content.BackColor = SystemColors.ControlLightLight;
+			parentForm.Controls.Add(segment.content);
 		}
 		public override void revalidate()
 		{
 			int topSize = parentForm.header.height + parentForm.menuBar.height;
-			content.Location = new Point(0, topSize);
-			content.Size = new Size(parentForm.Width, parentForm.Height - topSize);
+			segment.content.Location = new Point(0, topSize);
+			segment.content.Size = new Size(parentForm.Width, parentForm.Height - topSize);
 		}
 	}
 }
