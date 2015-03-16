@@ -11,7 +11,7 @@ namespace GuiBuilder.Editor_Framework
 	public class Window : Form
 	{
 
-		public string title;
+		public string title = "Window";
 		public Header header;
 		public const int HT_CAPTION = 0x2;
 		public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -38,7 +38,24 @@ namespace GuiBuilder.Editor_Framework
 				SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
 			}
 		}
-		private void InitializeComponent()
+		//
+		private const int SnapDist = 10;
+		private bool DoSnap(int pos, int edge)
+		{
+			int delta = pos - edge;
+			return delta > 0 && delta <= SnapDist;
+		}
+		protected override void OnResizeEnd(EventArgs e)
+		{
+			base.OnResizeEnd(e);
+			Screen scn = Screen.FromPoint(this.Location);
+			if (DoSnap(this.Left, scn.WorkingArea.Left)) this.Left = scn.WorkingArea.Left;
+			if (DoSnap(this.Top, scn.WorkingArea.Top)) this.Top = scn.WorkingArea.Top;
+			if (DoSnap(scn.WorkingArea.Right, this.Right)) this.Left = scn.WorkingArea.Right - this.Width;
+			if (DoSnap(scn.WorkingArea.Bottom, this.Bottom)) this.Top = scn.WorkingArea.Bottom - this.Height;
+		}
+
+		public void InitializeComponent()
 		{
 			this.SuspendLayout(); 
 			this.ClientSize = new System.Drawing.Size(284, 261);

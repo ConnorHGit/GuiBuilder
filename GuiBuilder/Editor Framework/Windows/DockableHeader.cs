@@ -39,6 +39,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 			blackExit = Image.FromFile("Resources/black exit.png");
 			iconImage = Image.FromFile("Resources/logo.png");
 
+			content.BackColor = SystemColors.Control;
 			title.AutoSize = true;
 			title.Padding = new Padding(5, 0, 5, 0);
 			title.Location = new Point(height, 5);

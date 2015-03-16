@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GuiBuilder.Editor_Framework;
+using GuiBuilder.Editor_Framework.Windows;
 
 namespace GuiBuilder
 {
@@ -24,6 +25,8 @@ namespace GuiBuilder
 			header = new Header(this);
 			menuBar = new MenuBar(); 
 			body = new Body(this);
+			DockableWindow test = new DockableWindow(body.segment);
+			
 		}
 
 		public override void revalidate()	
