@@ -149,14 +149,28 @@ namespace GuiBuilder.Editor_Framework.Windows
 		}
 		private void revalidate()
 		{
+			int width = parentDockableWindow.content.Width;
 			if (parentDockableWindow.docked) 
 			{
-				int width = parentDockableWindow.content.Width;
+				
 				background.Size = new Size(width, 25);
-				minimize.Location = new Point(width - 75, 0);
+				//minimize.Location = new Point(width - 75, 0);
 				maximize.Location = new Point(width - 50, 0);
 				exit.Location = new Point(width - 25, 0);
 				//parentForm.revalidate();
+				if (background.Controls.Contains(minimize))
+					background.Controls.Remove(minimize);
+				if (parentDockableWindow.window.Controls.Contains(background))
+				{
+					//parentDockableWindow.window.Controls.Remove(background);
+					parentDockableWindow.content.Controls.Add(background);
+				}
+			}
+			else
+			{
+				if (!background.Controls.Contains(minimize))
+					background.Controls.Add(minimize);
+				minimize.Location = new Point(width - 75, 0);
 			}
 			
 		}
