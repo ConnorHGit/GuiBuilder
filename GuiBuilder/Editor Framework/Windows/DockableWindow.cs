@@ -25,6 +25,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 			content.BackColor = SystemColors.ControlLightLight;
 			parentSegment.content.Controls.Add(content);
 			dockableHeader = new DockableHeader(this);
+			dockableHeader.title.Text = "Dockable Window";
 			content.Controls.Add(dockableHeader.content);
 			dock(parentSegment, defaultSegmentSpot, null);
 			undock();

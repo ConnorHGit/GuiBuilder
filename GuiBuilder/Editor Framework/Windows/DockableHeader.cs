@@ -11,10 +11,9 @@ namespace GuiBuilder.Editor_Framework.Windows
 		public class DockableHeader
 	{
 		public Panel content;
-		public Label minimize, maximize, exit, title, iconLabel;
+		public Label minimize, maximize, exit, title;
 		Image whiteMinimize, whiteMaximize, whiteRestoreDown, whiteExit,
-				blackMinimize, blackMaximize, blackRestoreDown, blackExit,
-				iconImage;
+				blackMinimize, blackMaximize, blackRestoreDown, blackExit;
 		DockableWindow parentDockableWindow;
 		public int height = 20;
 
@@ -27,7 +26,6 @@ namespace GuiBuilder.Editor_Framework.Windows
 			maximize = new Label();
 			exit = new Label();
 			title = new Label();
-			iconLabel = new Label();
 
 			whiteRestoreDown = Image.FromFile("Resources/white restore down.png");
 			whiteMinimize = Image.FromFile("Resources/white minimize.png");
@@ -37,23 +35,18 @@ namespace GuiBuilder.Editor_Framework.Windows
 			blackMinimize = Image.FromFile("Resources/black minimize.png");
 			blackMaximize = Image.FromFile("Resources/black maximize.png");
 			blackExit = Image.FromFile("Resources/black exit.png");
-			iconImage = Image.FromFile("Resources/logo.png");
 
 			content.BackColor = SystemColors.Control;
 			title.AutoSize = true;
 			title.Padding = new Padding(5, 0, 5, 0);
-			title.Location = new Point(height, 5);
+			title.Location = new Point(0, 3);
 			title.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			title.ForeColor = Color.Gray;
-			iconLabel.AutoSize = false;
-			iconLabel.Size = new Size(height, height);
-			iconLabel.Image = iconImage;
-			
 
 			minimize.AutoSize = false;
 			maximize.AutoSize = false;
 			exit.AutoSize = false;
-			content.Size = new Size(parentDockableWindow.content.Width,height);
+			content.Size = new Size(parentDockableWindow.content.Width, height);
 			minimize.Size = new Size(height, height);
 			maximize.Size = new Size(height, height);
 			exit.Size = new Size(height, height);
@@ -78,8 +71,6 @@ namespace GuiBuilder.Editor_Framework.Windows
 			maximize.MouseLeave += maximizeExited;
 			exit.MouseLeave += exitExited;
 
-			content.Controls.Add(iconLabel);
-			content.Controls.Add(title);
 			content.Controls.Add(minimize);
 			content.Controls.Add(maximize);
 			content.Controls.Add(exit);
@@ -100,10 +91,8 @@ namespace GuiBuilder.Editor_Framework.Windows
 		}
 		private void maximizeClicked(object sender, EventArgs e)
 		{
-
 			parentDockableWindow.window.WindowState = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
 			maximize.Image = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? blackRestoreDown : blackMaximize;
-			System.Console.Out.WriteLine("Maximized pressed");
 			parentDockableWindow.revalidate();
 			//revalidate();
 		}
@@ -156,14 +145,14 @@ namespace GuiBuilder.Editor_Framework.Windows
 		public void revalidate()
 		{
 			int width = parentDockableWindow.content.Width;
-			content.Size = new Size(width, 25);
+			content.Size = new Size(width, height);
 			if (parentDockableWindow.docked) 
 			{
 				
 				
-				//minimize.Location = new Point(width - 75, 0);
-				maximize.Location = new Point(width - 50, 0);
-				exit.Location = new Point(width - 25, 0);
+				//minimize.Location = new Point(width - height * 3, 0);
+				maximize.Location = new Point(width - height * 2, 0);
+				exit.Location = new Point(width - height, 0);
 
 				if (content.Controls.Contains(minimize))
 					content.Controls.Remove(minimize);
@@ -173,9 +162,9 @@ namespace GuiBuilder.Editor_Framework.Windows
 			{
 				if (!content.Controls.Contains(minimize))
 					content.Controls.Add(minimize);
-				minimize.Location = new Point(width - 75, 0);
-				maximize.Location = new Point(width - 50, 0);
-				exit.Location = new Point(width - 25, 0);
+				minimize.Location = new Point(width - height * 3, 0);
+				maximize.Location = new Point(width - height * 2, 0);
+				exit.Location = new Point(width - height * 1, 0);
 			}
 			
 		}
