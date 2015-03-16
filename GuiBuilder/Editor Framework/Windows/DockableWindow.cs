@@ -10,9 +10,16 @@ namespace GuiBuilder.Editor_Framework.Windows
 	public class DockableWindow : Segmentable
 	{
 		public Window window;
-		public Panel content;
 		public Boolean docked;
+		public Header header;
 
+		public DockableWindow(Segment parentSegment) {
+			this.parentSegment = parentSegment;
+			docked = true;
+			parentSegment.content.Controls.Add(content);
+			//content.
+
+		}
 		public void revalidate()
 		{
 

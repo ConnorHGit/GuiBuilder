@@ -50,6 +50,7 @@
     <Compile Include="Editor Framework\Window.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Editor Framework\Windows\DockableHeader.cs" />
     <Compile Include="Editor Framework\Windows\DockableWindow.cs" />
     <Compile Include="Editor Framework\Windows\Properties.cs" />
     <Compile Include="Editor Framework\Windows\Segmentable.cs" />

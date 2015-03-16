@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
 
-namespace GuiBuilder.Editor_Framework
+namespace GuiBuilder.Editor_Framework.Windows
 {
-	public class Header
+		public class DockableHeader
 	{
 		public Panel background;
 		public Label minimize, maximize, exit, title, iconLabel;
 		Image whiteMinimize, whiteMaximize, whiteRestoreDown, whiteExit,
 				blackMinimize, blackMaximize, blackRestoreDown, blackExit,
 				iconImage;
-		Window parentForm;
-		public int height = 25;
+		DockableWindow parentDockableWindow;
+		public int height = 20;
 
-		public Header(Window parentForm)
+		public DockableHeader(DockableWindow parentDockableWindow)
 		{
-			this.parentForm = parentForm;
+			this.parentDockableWindow = parentDockableWindow;
 			Console.WriteLine(Environment.CurrentDirectory);
 			background = new Panel();
 			minimize = new Label();
@@ -40,27 +40,26 @@ namespace GuiBuilder.Editor_Framework
 			iconImage = Image.FromFile("Resources/logo.png");
 
 			title.AutoSize = true;
-			title.Text = parentForm.title;
 			title.Padding = new Padding(5, 0, 5, 0);
-			title.Location = new Point(25, 5);
+			title.Location = new Point(height, 5);
 			title.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			title.ForeColor = Color.Gray;
 			iconLabel.AutoSize = false;
-			iconLabel.Size = new Size(25, 25);
+			iconLabel.Size = new Size(height, height);
 			iconLabel.Image = iconImage;
 			
 
 			minimize.AutoSize = false;
 			maximize.AutoSize = false;
 			exit.AutoSize = false;
-			background.Size = new Size(parentForm.Width,25);
-			minimize.Size = new Size(25, 25);
-			maximize.Size = new Size(25, 25);
-			exit.Size = new Size(25, 25);
+			background.Size = new Size(parentDockableWindow.content.Width,height);
+			minimize.Size = new Size(height, height);
+			maximize.Size = new Size(height, height);
+			exit.Size = new Size(height, height);
 
-			minimize.Location = new Point(parentForm.Width - 75, 0);
-			maximize.Location = new Point(parentForm.Width - 50, 0);
-			exit.Location     = new Point(parentForm.Width - 25, 0);
+			minimize.Location = new Point(parentDockableWindow.content.Width - height*3, 0);
+			maximize.Location = new Point(parentDockableWindow.content.Width - height*2, 0);
+			exit.Location = new Point(parentDockableWindow.content.Width - height, 0);
 
 			minimize.Image = blackMinimize;
 			maximize.Image = blackMaximize;
@@ -84,24 +83,26 @@ namespace GuiBuilder.Editor_Framework
 			background.Controls.Add(maximize);
 			background.Controls.Add(exit);
 			background.Controls.Add(title);
-			parentForm.Controls.Add(background);
+			parentDockableWindow.content.Controls.Add(background);
 
-			parentForm.Resize += sizeChange;
+			parentDockableWindow.window.Resize += sizeChange;
 
-			title.MouseDown += parentForm.TitleDrag;
-			background.MouseDown += parentForm.TitleDrag;
+			title.MouseDown += parentDockableWindow.window.TitleDrag;
+			background.MouseDown += parentDockableWindow.window.TitleDrag;
 		}
 
 		private void minimizeClicked(object sender, EventArgs e)
 		{
 			Program.mainWindow.WindowState = FormWindowState.Minimized;
-			revalidate();
+			parentDockableWindow.revalidate();
+			//revalidate();
 		}
 		private void maximizeClicked(object sender, EventArgs e)
 		{
 			Program.mainWindow.WindowState = Program.mainWindow.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
 			maximize.Image = blackRestoreDown;
-			revalidate();
+			parentDockableWindow.revalidate();
+			//revalidate();
 		}
 		private void exitClicked(object sender, EventArgs e)
 		{
@@ -143,15 +144,23 @@ namespace GuiBuilder.Editor_Framework
 
 		private void sizeChange(object sender, EventArgs e)
 		{
-			revalidate();
+			//revalidate();
+			parentDockableWindow.revalidate();
 		}
 		private void revalidate()
 		{
-			background.Size = new Size(parentForm.Width, 25);
-			minimize.Location = new Point(parentForm.Width - 75, 0);
-			maximize.Location = new Point(parentForm.Width - 50, 0);
-			exit.Location = new Point(parentForm.Width - 25, 0);
-			parentForm.revalidate();
+			if (parentDockableWindow.docked) 
+			{
+				int width = parentDockableWindow.content.Width;
+				background.Size = new Size(width, 25);
+				minimize.Location = new Point(width - 75, 0);
+				maximize.Location = new Point(width - 50, 0);
+				exit.Location = new Point(width - 25, 0);
+				//parentForm.revalidate();
+			}
+			
 		}
 	}
 }
+
+

@@ -10,7 +10,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 	class Properties : DockableWindow
 	{
 		Hashtable properties;
-		public Properties()
+		public void init()
 		{
 
 		}

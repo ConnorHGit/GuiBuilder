@@ -28,6 +28,8 @@ namespace GuiBuilder.Editor_Framework.Windows
 		{
 			this.parentSegment = parentSegment;
 			this.segmentStyle = segmentStyle;
+			childOne.parentSegment = this;
+			childTwo.parentSegment = this;
 			children[0] = childOne;
 			children[1] = childTwo;
 			content.Controls.Add(childOne.content);
@@ -132,11 +134,13 @@ namespace GuiBuilder.Editor_Framework.Windows
 		{
 			if (children[0] == null)
 			{
+				child.parentSegment = this;
 				children[0] = child;
 				segmentStyle = SegmentStyle.None;
 			}
 			else if (children[1] == null)
 			{
+				child.parentSegment = this;
 				children[1] = child;
 				this.segmentStyle = segmentSpot == SegmentSpot.Left || segmentSpot == SegmentSpot.Right ? SegmentStyle.Vertical : this.segmentStyle;
 				this.segmentStyle = segmentSpot == SegmentSpot.Up || segmentSpot == SegmentSpot.Down ? SegmentStyle.Horizontal : this.segmentStyle;
