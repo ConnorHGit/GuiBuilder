@@ -27,9 +27,9 @@ namespace GuiBuilder.Editor_Framework.Windows
 			dockableHeader = new DockableHeader(this);
 			dockableHeader.title.Text = "Dockable Window";
 			content.Controls.Add(dockableHeader.content);
-			dock(parentSegment, defaultSegmentSpot, null);
+			dock(parentSegment, defaultSegmentSpot);
 			undock();
-			dock(parentSegment, defaultSegmentSpot, null);
+			dock(parentSegment, defaultSegmentSpot);
 		}
 
 
@@ -46,6 +46,14 @@ namespace GuiBuilder.Editor_Framework.Windows
 			docked = true;
 			segment.addChild(this, segmentSpot, sendingChild);
 		}
+		public void dock(Segment segment, SegmentSpot segmentSpot)
+		{
+			if (window != null)
+				window.Hide();
+			docked = true;
+			segment.addChild(this, segmentSpot, segment.children[0]);
+		}
+
 		public void undock()
 		{
 			if (window == null)

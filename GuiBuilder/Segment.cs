@@ -14,7 +14,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 		public int barThickness = 6;
 		public Label splitBar;
 		public Panel content;
-		public SegmentStyle segmentStyle = SegmentStyle.None;
+		public SegmentStyle segmentStyle;
 		public SegmentType segmentType = SegmentType.Segment;
 		public Segmentable[] children = new Segmentable[2];		
 		
