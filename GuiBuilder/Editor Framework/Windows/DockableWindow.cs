@@ -29,6 +29,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 			content.Controls.Add(dockableHeader.content);
 			dock(parentSegment, defaultSegmentSpot, null);
 			undock();
+			dock(parentSegment, defaultSegmentSpot, null);
 		}
 
 

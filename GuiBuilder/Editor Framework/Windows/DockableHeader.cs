@@ -91,14 +91,22 @@ namespace GuiBuilder.Editor_Framework.Windows
 		}
 		private void maximizeClicked(object sender, EventArgs e)
 		{
-			parentDockableWindow.window.WindowState = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+			if (!parentDockableWindow.docked)
+				parentDockableWindow.window.WindowState = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+			else
+				parentDockableWindow.undock();
 			maximize.Image = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? blackRestoreDown : blackMaximize;
 			parentDockableWindow.revalidate();
 			//revalidate();
 		}
 		private void exitClicked(object sender, EventArgs e)
 		{
-			Application.Exit();
+			if (parentDockableWindow.docked)
+			{
+				parentDockableWindow.undock();
+				
+			}
+			parentDockableWindow.window.Hide();
 		}
 
 		private void minimizeEntered(object sender, EventArgs e)
@@ -106,14 +114,15 @@ namespace GuiBuilder.Editor_Framework.Windows
 			minimize.BackColor = SystemColors.HotTrack;
 			minimize.Image = whiteMinimize;
 		}
+
 		private void maximizeEntered(object sender, EventArgs e)
 		{
 			maximize.BackColor = SystemColors.HotTrack;
 			maximize.Image = whiteRestoreDown;
-			if (!parentDockableWindow.docked)
-				maximize.Image = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? whiteRestoreDown : whiteMaximize;
+			maximize.Image = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? whiteRestoreDown : whiteMaximize;
 
 		}
+
 		private void exitEntered(object sender, EventArgs e)
 		{
 			exit.BackColor = Color.Red;
@@ -134,7 +143,6 @@ namespace GuiBuilder.Editor_Framework.Windows
 		{
 			exit.BackColor = SystemColors.Control;
 			exit.Image = blackExit;
-
 		}
 
 		private void sizeChange(object sender, EventArgs e)
