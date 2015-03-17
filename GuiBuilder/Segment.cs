@@ -40,7 +40,10 @@ namespace GuiBuilder.Editor_Framework.Windows
 
 		public override void revalidate()
 		{
+			System.Console.Out.WriteLine(segmentStyle);
 			if (children[1] != null) {
+				if (splitBar == null)
+					splitBar = new Label();
 				if (segmentStyle == SegmentStyle.Horizontal)
 				{
 					int width, height, childWidth, childHeight, position1Offset, position2Offset, size1Offset, size2Offset;

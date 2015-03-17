@@ -25,8 +25,9 @@ namespace GuiBuilder
 			header = new Header(this);
 			menuBar = new MenuBar(); 
 			body = new Body(this);
-			DockableWindow test = new DockableWindow(body.segment);
-			
+			DockableWindow d1 = new DockableWindow(body.segment);
+			DockableWindow d2 = new DockableWindow(body.segment);
+
 		}
 
 		public override void revalidate()	
