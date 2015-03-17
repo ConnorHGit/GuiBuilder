@@ -86,7 +86,10 @@ namespace GuiBuilder.Editor_Framework.Windows
 		private void minimizeClicked(object sender, EventArgs e)
 		{
 			parentDockableWindow.window.WindowState = FormWindowState.Minimized;
-			parentDockableWindow.revalidate();
+			if (parentDockableWindow.docked)
+				parentDockableWindow.parentSegment.revalidate();
+			else
+				parentDockableWindow.revalidate();
 			//revalidate();
 		}
 		private void maximizeClicked(object sender, EventArgs e)
@@ -95,8 +98,13 @@ namespace GuiBuilder.Editor_Framework.Windows
 				parentDockableWindow.window.WindowState = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
 			else
 				parentDockableWindow.undock();
+
 			maximize.Image = parentDockableWindow.window.WindowState == FormWindowState.Maximized ? blackRestoreDown : blackMaximize;
-			parentDockableWindow.revalidate();
+			
+			if (parentDockableWindow.docked)
+				parentDockableWindow.parentSegment.revalidate();
+			else
+				parentDockableWindow.revalidate();
 			//revalidate();
 		}
 		private void exitClicked(object sender, EventArgs e)
@@ -148,7 +156,10 @@ namespace GuiBuilder.Editor_Framework.Windows
 		private void sizeChange(object sender, EventArgs e)
 		{
 			//revalidate();
-			parentDockableWindow.revalidate();
+			if (parentDockableWindow.docked)
+				parentDockableWindow.parentSegment.revalidate();
+			else
+				parentDockableWindow.revalidate();
 		}
 		public void revalidate()
 		{
