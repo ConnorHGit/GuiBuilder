@@ -11,28 +11,46 @@ namespace GuiBuilder.Editor_Framework.Windows
 	public class Segment : Segmentable
 	{
 		public int barOffset;
-		public int barThickness = 6;
-		public Label splitBar = new Label();
-		public Panel content = new Panel();
+		public int barThickness;
+		public Label splitBar;
+		public Label splitBar2;
+		public Panel content;
 		public SegmentStyle segmentStyle;
-		public SegmentType segmentType = SegmentType.Segment;
-		public Segmentable[] children = new Segmentable[2];		
-		
+		public SegmentType segmentType;
+		public Segmentable[] children;
 
-		//used for constructor in Body class
+		public void init()
+		{
+			content	= new Panel();
+			splitBar = new Label();
+			splitBar2 = new Label();
+			barOffset = 0;
+			barThickness = 6;
+			segmentType = SegmentType.Segment;
+			children = new Segmentable[2];
+			splitBar.BackColor = SystemColors.Control;
+			splitBar2.BackColor = SystemColors.ControlDarkDark;
+
+			splitBar.MouseEnter += splitBarMouseEnter;
+			splitBar.MouseMove += splitBarMouseMove;
+			splitBar.MouseDown += splitBarMouseDown;
+			splitBar.MouseUp += splitBarMouseUp;
+		}
 		public Segment()
 		{
-			//System.Console.WriteLine("created thing");
-			splitBar.BackColor = SystemColors.Control;
+			init();
+			revalidate();
 		}	
 		public Segment(Segment parentSegment)
 		{
+			init();
 			this.parentSegment = parentSegment;
 			content.Size = new Size(parentSegment.content.Size.Width, parentSegment.content.Size.Height);
 			revalidate();
 		}
 		public Segment(Segment parentSegment, Segmentable childOne, Segmentable childTwo, SegmentStyle segmentStyle)
 		{
+			init();
 			this.parentSegment = parentSegment;
 			this.segmentStyle = segmentStyle;
 			childOne.parentSegment = this;
@@ -42,7 +60,6 @@ namespace GuiBuilder.Editor_Framework.Windows
 			content.Controls.Add(childOne.content);
 			content.Controls.Add(childTwo.content);
 			parentSegment.content.Controls.Add(content);
-			barOffset = 0;
 			revalidate();
 		}
 
@@ -51,7 +68,6 @@ namespace GuiBuilder.Editor_Framework.Windows
 			int width = content.Size.Width;
 			int height = content.Size.Height;
 					
-			System.Console.Out.WriteLine(segmentStyle);
 			if (children[1] != null) {
 				if (!content.Controls.Contains(splitBar))
 					content.Controls.Add(splitBar);
@@ -166,5 +182,47 @@ namespace GuiBuilder.Editor_Framework.Windows
 			}
 
 		}
+	
+		// Events
+		private bool mouseDown = false;
+		private bool started = false;
+		private int downPosition;
+
+		private void splitBarMouseEnter(object sender, EventArgs e)
+		{
+			if (segmentStyle == SegmentStyle.Vertical)
+				splitBar.Cursor = Cursors.SizeWE;
+			else if (segmentStyle == SegmentStyle.Horizontal)
+				splitBar.Cursor = Cursors.SizeNS;
+		}
+		private void splitBarMouseDown(object sender, EventArgs e)
+		{
+			mouseDown = true;
+			content.Controls.Add(splitBar2);
+		}
+		private void splitBarMouseUp(object sender, EventArgs e)
+		{
+			mouseDown = false;
+			started = false;
+			content.Controls.Remove(splitBar2);
+		}
+		private void splitBarMouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+		{
+			if (mouseDown)
+			{
+				System.Console.WriteLine("moving, x:" + e.Location.X);
+				if (!started) 
+				{
+					started = true;
+					if (segmentStyle == SegmentStyle.Vertical)
+						downPosition = Cursor.Position.X;
+					if (segmentStyle == SegmentStyle.Horizontal)
+						downPosition = Cursor.Position.Y;
+				}
+				
+			}
+				
+		}
+	
 	}
 }

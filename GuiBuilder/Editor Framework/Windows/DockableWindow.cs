@@ -18,21 +18,21 @@ namespace GuiBuilder.Editor_Framework.Windows
 
 		public DockableWindow() { }
 		public DockableWindow(Segment parentSegment) {
+			init();
 			this.parentSegment = parentSegment;
-			docked = true;
-			content = new Panel();
-			window = new Window();
-			content.BackColor = SystemColors.ControlLightLight;
 			parentSegment.content.Controls.Add(content);
-			dockableHeader = new DockableHeader(this);
-			dockableHeader.title.Text = "Dockable Window";
-			content.Controls.Add(dockableHeader.content);
-			dock(parentSegment, defaultSegmentSpot);
-			undock();
 			dock(parentSegment, defaultSegmentSpot);
 		}
-
-
+		public void init()
+		{
+			content = new Panel();
+			window = new Window();
+			dockableHeader = new DockableHeader(this);
+			dockableHeader.title.Text = "Dockable Window";
+			content.BackColor = SystemColors.ControlLightLight;
+			content.Controls.Add(dockableHeader.content);
+		}
+		
 		public override void revalidate()
 		{
 			if (!docked)
