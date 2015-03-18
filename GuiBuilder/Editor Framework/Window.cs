@@ -13,10 +13,14 @@ namespace GuiBuilder.Editor_Framework
 
 		public string title = "Window";
 		public Header header;
+		public Panel content = new Panel();
 		public const int HT_CAPTION = 0x2;
 		public const int WM_NCLBUTTONDOWN = 0xA1;
 
-		public Window(){}
+		public Window()
+		{
+			//System.Console.Out.WriteLine("window cunstoctor called");
+		}
 		public Window(String title)
 		{
 			this.title = title;
@@ -39,7 +43,7 @@ namespace GuiBuilder.Editor_Framework
 			}
 		}
 		//
-		//
+		/*/
 		const int WM_NCHITTEST = 0x0084;
 		const int HTCLIENT = 1;
 		const int HTCAPTION = 2;
@@ -65,7 +69,7 @@ namespace GuiBuilder.Editor_Framework
 				return cp;
 			}
 		}
-		//
+		//*/
 		//
 		private const int SnapDist = 10;
 		private bool DoSnap(int pos, int edge)
@@ -85,10 +89,14 @@ namespace GuiBuilder.Editor_Framework
 
 		public void InitializeComponent()
 		{
-			this.SuspendLayout(); 
+			this.SuspendLayout();
+			// 
+			// Window
+			// 
 			this.ClientSize = new System.Drawing.Size(284, 261);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "Window";
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.ResumeLayout(false);
 
 		}

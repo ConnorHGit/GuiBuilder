@@ -10,14 +10,14 @@ namespace GuiBuilder.Editor_Framework
 {
 	public class Header
 	{
+		public int height = 25;
+		public Window parentForm;
 		public Panel background;
 		public Label minimize, maximize, exit, title, iconLabel;
-		Image whiteMinimize, whiteMaximize, whiteRestoreDown, whiteExit,
+		public Image whiteMinimize, whiteMaximize, whiteRestoreDown, whiteExit,
 				blackMinimize, blackMaximize, blackRestoreDown, blackExit,
 				iconImage;
-		Window parentForm;
-		public int height = 25;
-
+		
 		public Header(Window parentForm)
 		{
 			this.parentForm = parentForm;
@@ -49,7 +49,6 @@ namespace GuiBuilder.Editor_Framework
 			iconLabel.Size = new Size(25, 25);
 			iconLabel.Image = iconImage;
 			
-
 			minimize.AutoSize = false;
 			maximize.AutoSize = false;
 			exit.AutoSize = false;
@@ -84,7 +83,7 @@ namespace GuiBuilder.Editor_Framework
 			background.Controls.Add(maximize);
 			background.Controls.Add(exit);
 			background.Controls.Add(title);
-			parentForm.Controls.Add(background);
+			parentForm.content.Controls.Add(background);
 
 			parentForm.Resize += sizeChange;
 
@@ -138,20 +137,20 @@ namespace GuiBuilder.Editor_Framework
 		{
 			exit.BackColor = SystemColors.Control;
 			exit.Image = blackExit;
-
 		}
 
 		private void sizeChange(object sender, EventArgs e)
 		{
-			revalidate();
-		}
-		private void revalidate()
-		{
-			background.Size = new Size(parentForm.Width, 25);
-			minimize.Location = new Point(parentForm.Width - 75, 0);
-			maximize.Location = new Point(parentForm.Width - 50, 0);
-			exit.Location = new Point(parentForm.Width - 25, 0);
 			parentForm.revalidate();
+			System.Console.Out.WriteLine("Resized");
+		}
+		public void revalidate()
+		{
+			int width = parentForm.content.Width;
+			background.Size = new Size(width, 25);
+			minimize.Location = new Point(width - 75, 0);
+			maximize.Location = new Point(width - 50, 0);
+			exit.Location = new Point(width - 25, 0);
 		}
 	}
 }

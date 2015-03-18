@@ -23,13 +23,14 @@ namespace GuiBuilder.Editor_Framework
 			segment.content.Location = new Point(0, topSize);
 			segment.content.Size = new Size(parentForm.Width, parentForm.Height - topSize);
 			segment.content.BackColor = SystemColors.ControlLightLight;
-			parentForm.Controls.Add(segment.content);
+			parentForm.content.Controls.Add(segment.content);
 		}
 		public void revalidate()
 		{
 			int topSize = parentForm.header.height + parentForm.menuBar.height;
 			segment.content.Location = new Point(0, topSize);
-			segment.content.Size = new Size(parentForm.Width, parentForm.Height - topSize);
+			segment.content.Size = new Size(parentForm.content.Width, parentForm.content.Height - topSize);
+			segment.revalidate();
 		}
 	}
 }

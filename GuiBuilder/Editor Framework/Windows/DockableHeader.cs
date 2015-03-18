@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace GuiBuilder.Editor_Framework.Windows
 {
-		public class DockableHeader
+	public class DockableHeader
 	{
 		public Panel content;
 		public Label minimize, maximize, exit, title;
@@ -167,15 +167,12 @@ namespace GuiBuilder.Editor_Framework.Windows
 			content.Size = new Size(width, height);
 			if (parentDockableWindow.docked) 
 			{
-				
-				
 				//minimize.Location = new Point(width - height * 3, 0);
 				maximize.Location = new Point(width - height * 2, 0);
 				exit.Location = new Point(width - height, 0);
 
 				if (content.Controls.Contains(minimize))
 					content.Controls.Remove(minimize);
-				
 			}
 			else
 			{

@@ -36,7 +36,10 @@ namespace GuiBuilder.Editor_Framework.Windows
 		public override void revalidate()
 		{
 			if (!docked)
-				content.Size = new Size(window.Size.Width, window.Size.Height);
+			{
+				content.Size = new Size(window.Size.Width - 10, window.Size.Height - 10);
+				content.Location = new Point(5, 5);
+			}
 			dockableHeader.revalidate();
 		}
 		public void dock(Segment segment, SegmentSpot segmentSpot, Segment sendingChild) 

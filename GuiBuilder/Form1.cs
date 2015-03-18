@@ -16,12 +16,13 @@ namespace GuiBuilder
     {
 		public MenuBar menuBar;
 		public Body body;
-
+		
         public Form1()
         {
 			System.Console.Out.WriteLine("Form created");
 			title = "Gui Builder";
             InitializeComponent();
+			Controls.Add(content);
 			header = new Header(this);
 			menuBar = new MenuBar(); 
 			body = new Body(this);
@@ -32,6 +33,9 @@ namespace GuiBuilder
 
 		public override void revalidate()	
 		{
+			content.Size = new Size(Size.Width - 10, Size.Height - 10);
+			content.Location = new Point(5, 5);
+			header.revalidate();
 			body.revalidate();
 			menuBar.revalidate();
 		}

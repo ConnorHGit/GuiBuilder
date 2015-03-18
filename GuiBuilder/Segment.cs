@@ -23,6 +23,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 		{
 			this.parentSegment = parentSegment;
 			content.Size = new Size(parentSegment.content.Size.Width, parentSegment.content.Size.Height);
+			revalidate();
 		}
 		public Segment(Segment parentSegment, Segmentable childOne, Segmentable childTwo, SegmentStyle segmentStyle)
 		{
@@ -36,51 +37,37 @@ namespace GuiBuilder.Editor_Framework.Windows
 			content.Controls.Add(childTwo.content);
 			parentSegment.content.Controls.Add(content);
 			barOffset = 0;
+			revalidate();
 		}
 
 		public override void revalidate()
 		{
+			int width = content.Size.Width;
+			int height = content.Size.Height;
+					
 			System.Console.Out.WriteLine(segmentStyle);
 			if (children[1] != null) {
 				if (splitBar == null)
 					splitBar = new Label();
 				if (segmentStyle == SegmentStyle.Horizontal)
 				{
-					int width, height, childWidth, childHeight, position1Offset, position2Offset, size1Offset, size2Offset;
-					width = content.Size.Width;
-					height = content.Size.Height;
-					childWidth = (width / 2) - (barThickness / 2);
-					childHeight = height;
-					size1Offset = barOffset;
-					size2Offset = -barOffset + barThickness + childWidth;
-					position1Offset = 0;
-					position2Offset = barOffset;
-
 					splitBar.Size = new Size(width, barThickness);
-					splitBar.Location = new Point(0, (height / 2) - (barThickness / 2));
-					children[0].content.Size = new Size(childWidth + barOffset, childHeight);
-					children[1].content.Size = new Size(childWidth - barOffset, childHeight);
-					children[0].content.Location = new Point(position1Offset, 0);
-					children[1].content.Location = new Point(position2Offset, 0);
+					splitBar.Location = new Point(0, (width / 2) - (barThickness / 2));
+
+					children[0].content.Size = new Size(width, (height / 2) - (barThickness / 2));
+					children[1].content.Size = new Size(width, (height / 2) - (barThickness / 2));
+
+					children[0].content.Location = new Point(0, 0);
+					children[1].content.Location = new Point(0, (height / 2) + (barThickness / 2));
 				}
 				else if (segmentStyle == SegmentStyle.Vertical)
 				{
-					int width, height, childWidth, childHeight, position1Offset, position2Offset, size1Offset, size2Offset;
-					width = content.Size.Width;
-					height = content.Size.Height;
-					childWidth = width;
-					childHeight = (height / 2) - (barThickness / 2);
-					size1Offset = barOffset;
-					size2Offset = -barOffset + barThickness + childHeight;
-					position1Offset = 0;
-					position2Offset = barOffset;
-
-					splitBar.Size = new Size(barOffset, height);
+					splitBar.Size = new Size(barThickness, height);
 					splitBar.Location = new Point((width / 2) - (barThickness / 2), 0);
-					children[0].content.Size = new Size(childWidth, childHeight + barOffset);
-					children[1].content.Size = new Size(childWidth, childHeight - barOffset);
-					children[0].content.Location = new Point(position1Offset, 0);
-					children[1].content.Location = new Point(position2Offset, 0);
+					children[0].content.Size = new Size((width / 2) - (barThickness / 2), height);
+					children[1].content.Size = new Size((width / 2) - (barThickness / 2), height);
+					children[0].content.Location = new Point(0, 0);
+					children[1].content.Location = new Point((width / 2) + (barThickness / 2), 0);
 				}
 				children[0].revalidate();
 				children[1].revalidate();
@@ -88,6 +75,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 			else if (children[0] != null && children[1] == null) 
 			{
 				children[0].content.Size = new Size(content.Size.Width, content.Size.Height);
+				children[0].content.Location = new Point(0, 0);
 				children[0].revalidate();
 			}
 		}
@@ -172,7 +160,4 @@ namespace GuiBuilder.Editor_Framework.Windows
 
 		}
 	}
-
-
-
 }
