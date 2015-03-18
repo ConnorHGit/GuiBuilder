@@ -12,13 +12,19 @@ namespace GuiBuilder.Editor_Framework.Windows
 	{
 		public int barOffset;
 		public int barThickness = 6;
-		public Label splitBar;
-		public Panel content;
+		public Label splitBar = new Label();
+		public Panel content = new Panel();
 		public SegmentStyle segmentStyle;
 		public SegmentType segmentType = SegmentType.Segment;
 		public Segmentable[] children = new Segmentable[2];		
 		
-		public Segment(){}	//used for constructor in Body class
+
+		//used for constructor in Body class
+		public Segment()
+		{
+			//System.Console.WriteLine("created thing");
+			splitBar.BackColor = SystemColors.Control;
+		}	
 		public Segment(Segment parentSegment)
 		{
 			this.parentSegment = parentSegment;
@@ -47,8 +53,9 @@ namespace GuiBuilder.Editor_Framework.Windows
 					
 			System.Console.Out.WriteLine(segmentStyle);
 			if (children[1] != null) {
-				if (splitBar == null)
-					splitBar = new Label();
+				if (!content.Controls.Contains(splitBar))
+					content.Controls.Add(splitBar);
+
 				if (segmentStyle == SegmentStyle.Horizontal)
 				{
 					splitBar.Size = new Size(width, barThickness);
