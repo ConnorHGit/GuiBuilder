@@ -24,12 +24,14 @@ namespace GuiBuilder.Editor_Framework.Windows
 			content	= new Panel();
 			splitBar = new Label();
 			splitBar2 = new Label();
+			children = new Segmentable[2];
+
 			barOffset = 0;
 			barThickness = 6;
 			segmentType = SegmentType.Segment;
-			children = new Segmentable[2];
 			splitBar.BackColor = SystemColors.Control;
 			splitBar2.BackColor = SystemColors.ControlDarkDark;
+
 
 			splitBar.MouseEnter += splitBarMouseEnter;
 			splitBar.MouseMove += splitBarMouseMove;
@@ -187,7 +189,7 @@ namespace GuiBuilder.Editor_Framework.Windows
 		private bool mouseDown = false;
 		private bool started = false;
 		private int downPosition;
-
+		private int delta = 0;
 		private void splitBarMouseEnter(object sender, EventArgs e)
 		{
 			if (segmentStyle == SegmentStyle.Vertical)
@@ -197,29 +199,67 @@ namespace GuiBuilder.Editor_Framework.Windows
 		}
 		private void splitBarMouseDown(object sender, EventArgs e)
 		{
+			delta = 0;
+			splitBar2.Show();
 			mouseDown = true;
+			//if (content.Controls.Contains(splitBar2))
+				content.Controls.Remove(splitBar2);
+			
+			if (children[1] != null)
+			{
+				content.Controls.Remove(children[0].content);
+				content.Controls.Remove(children[1].content);
+				content.Controls.Add(children[0].content);
+				content.Controls.Add(children[1].content);
+			}
 			content.Controls.Add(splitBar2);
+
+			content.Controls.Add(splitBar2);
+
+			//splitBar2.Show();
+			splitBar2.Size = splitBar.Size;
+			splitBar2.Location = new Point(splitBar.Location.X, splitBar.Location.Y);
 		}
 		private void splitBarMouseUp(object sender, EventArgs e)
 		{
 			mouseDown = false;
 			started = false;
-			content.Controls.Remove(splitBar2);
+			splitBar2.Hide();
+			System.Console.WriteLine(delta);
+
+			barOffset = delta;
+			revalidate();
 		}
 		private void splitBarMouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
 			if (mouseDown)
 			{
-				System.Console.WriteLine("moving, x:" + e.Location.X);
+				//System.Console.WriteLine("moving, x:" + e.Location.X);
 				if (!started) 
 				{
 					started = true;
 					if (segmentStyle == SegmentStyle.Vertical)
-						downPosition = Cursor.Position.X;
+						downPosition = e.Location.X;
 					if (segmentStyle == SegmentStyle.Horizontal)
-						downPosition = Cursor.Position.Y;
+						downPosition = e.Location.Y;
 				}
 				
+				if (segmentStyle == SegmentStyle.Vertical)
+					delta = e.Location.X - downPosition;
+				if (segmentStyle == SegmentStyle.Horizontal)
+					delta = e.Location.Y - downPosition;
+
+				//splitBar2.Location = new Point(splitBar.Location.X, splitBar.Location.Y);
+				if (segmentStyle == SegmentStyle.Vertical)
+					splitBar2.Location = new Point(splitBar.Location.X + delta, splitBar.Location.Y);
+				if (segmentStyle == SegmentStyle.Horizontal)
+					splitBar2.Location = new Point(splitBar.Location.X, splitBar.Location.Y + delta);
+
+				splitBar2.BringToFront();
+				content.Invalidate();
+				//children[0].content.Hide();
+				//children[1].content.Hide();
+				//System.Console.WriteLine("the second bar is in the content? " + (content.Controls.Contains(splitBar2) ? "yes" : "no") );
 			}
 				
 		}

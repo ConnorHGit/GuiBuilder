@@ -19,7 +19,6 @@ namespace GuiBuilder
 		
         public Form1()
         {
-			System.Console.Out.WriteLine("Form created");
 			title = "Gui Builder";
             InitializeComponent();
 			Controls.Add(content);

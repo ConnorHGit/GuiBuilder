@@ -93,11 +93,32 @@ namespace GuiBuilder.Editor_Framework
 			// 
 			// Window
 			// 
-			this.ClientSize = new System.Drawing.Size(284, 261);
+			this.ClientSize = new System.Drawing.Size(500, 324);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "Window";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+			this.Load += new System.EventHandler(this.Window_Load);
 			this.ResumeLayout(false);
+
+		}
+
+		private void label1_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void label1_Click_1(object sender, EventArgs e)
+		{
+
+		}
+
+		private void label3_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void Window_Load(object sender, EventArgs e)
+		{
 
 		}
 	}
